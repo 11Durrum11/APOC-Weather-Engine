@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="APOC Weather Engine v26 — deterministic fantasy weather for tabletop games. One file, works offline.">
+<meta name="description" content="APOC Weather Engine v27 — deterministic fantasy weather for tabletop games. One file, works offline.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101318'/%3E%3Cpath d='M6 20 Q10 14 16 18 T26 16' stroke='%2362b0ff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='10' r='3.5' fill='%23ffd166'/%3E%3C/svg%3E">
-<title>APOC Weather Engine v26</title>
+<title>APOC Weather Engine v27</title>
 <style>
 :root{
   --bg:#0c0f14; --panel:#171c26; --panel2:#1f2634; --card:#11161f;
@@ -18,7 +18,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;color:var(--text);min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   background:radial-gradient(1100px 480px at 50% -80px,var(--glow) 0,transparent 60%),radial-gradient(circle at top,var(--panel2) 0,var(--bg) 58%)}
-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap: 8px;flex-wrap:wrap;
   padding:10px 16px;background:#0b0e14e6;border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
 header h1{margin:0;font-size:19px;letter-spacing:.01em}
 header .sub{color:var(--muted);font-size:12px}
@@ -39,16 +39,16 @@ input[type=range]{padding:0}
 input[type=checkbox]{width:auto;accent-color:var(--accent)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.btnrow{display:flex;gap:8px;flex-wrap:wrap}
-button{border:1px solid var(--border);border-radius:9px;padding:9px 12px;background:#24344a;cursor:pointer}
+.btnrow{display:flex;gap:5px;flex-wrap:wrap}
+button{border:1px solid var(--border);border-radius:8px;padding:5px  9px;background:#24344a;cursor:pointer}
 button:hover{background:#2f4562}
 button.primary{background:#2b5ea7;border-color:#3f7fd1;font-weight:700;flex:1}
 button.primary:hover{background:#3573c4}
 button.ghost{background:#171e29}
-button.small{padding:6px 9px;font-size:12.5px}
+button.small{padding:3px 7px;font-size:12.5px}
 button:disabled{opacity:.45;cursor:not-allowed}
 .mode{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-top:4px}
-.mode button{border:0;border-radius:0;padding:7px 4px;font-size:12.5px;background:#0d1219;color:var(--muted)}
+.mode button{border:0;border-radius:0;padding:4px 4px;font-size:12.5px;background:#0d1219;color:var(--muted)}
 .mode button[aria-pressed="true"]{background:#2b5ea7;color:#fff;font-weight:700}
 .mode button + button{border-left:1px solid var(--border)}
 .hint{font-size:12px;color:var(--faint);line-height:1.45;margin-top:6px}
@@ -84,9 +84,9 @@ table.forecast tr[data-day]{cursor:pointer}
 table.forecast tr[data-day]:hover td{background:#ffffff08}
 .lower{max-width:1280px;margin:0 auto;padding:0 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .lower .panel{padding:16px}
-.historyItem{display:grid;grid-template-columns:104px 74px 1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--border-soft);font-size:13px}
+.historyItem{display:grid;grid-template-columns:104px 74px 1fr auto auto;gap:6px;align-items:center;padding:6px 0;border-top:1px solid var(--border-soft);font-size:13px}
 .historyItem:first-of-type{border-top:0}
-.browseItem{display:flex;gap:8px;align-items:baseline;padding:7px 0;border-top:1px solid var(--border-soft);font-size:13.5px;cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left;border-radius:0}
+.browseItem{display:flex;gap:6px;align-items:baseline;padding:5px 0;border-top:1px solid var(--border-soft);font-size:13.5px;cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left;border-radius:0}
 .browseItem:hover{background:#ffffff08}
 .browseItem .cat{color:var(--faint);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
 .browseItem .d{color:var(--muted);font-size:12.5px;display:block;line-height:1.4}
@@ -117,7 +117,7 @@ body.focus #exitFocus{display:block}
 </head>
 <body>
 <header>
-  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v26</span></h1>
+  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v27</span></h1>
   <span class="sub">Deterministic fantasy weather · one file · works offline</span>
   <span class="spacer"></span>
   <button type="button" class="small" id="focusBtn" title="Hide everything except the result (F)">⛶ Focus on Result</button>
@@ -239,7 +239,7 @@ body.focus #exitFocus{display:block}
 </div>
 
 <footer>
-  APOC Weather Engine v26 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
+  APOC Weather Engine v27 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
   v25 (Shaun, 2026-11-07): DM WORKSPACE — the movable-pieces treatment and in-place text editing are DM-ONLY: this page arms DM mode per device from the DM link (…?dm=1); everyone else gets the clean stock page with no grips, handles, locks or editing. In DM mode, framing text (labels, headings, hints, button names) can be reworded in place behind the Editing lock (default locked); generated weather values and the scene artwork are never editable. Layout and wording save on the DM’s device only.
   v24 (Shaun, 2026-11-07): MOVABLE PIECES — every panel, section and card on the page can be dragged by its ⠿ grip, resized from any edge or corner, flipped vertical/horizontal by its shape, and locked in place piece by piece. Layout saves on this device only; ↺ Reset Layout in the header restores the shipped arrangement.
   v23 (Shaun, 2026-10-31): HATE STORMS CARRY THEIR OWN TEMPERATURE. v22 left a hatestorm's temperature blank unless set by hand — Shaun's ruling: blank is wrong; the storm itself sets the temperature. Each of the 19 hatestorms now rolls its temperature from its own nature, in any month of the year: a Firestorm runs 110–150°F, Green Rain steams at 85–110°F, Rain of Blood falls warm at 70–90°F, while Frozen Ruin plunges to −10–15°F, Howl of the North bites at 0–25°F, and the snow-born storms (Blood Snow Blizzard, Negation Flurry, Razor Sleet, Rust Flurry) stay below freezing. The climate-shift slider still applies on top, and a temperature set by hand still wins. The season half of v22 stands unchanged: no hatestorm is ever stamped with the month's season.
