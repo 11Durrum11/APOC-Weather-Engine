@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="APOC Weather Engine v24 — deterministic fantasy weather for tabletop games. One file, works offline.">
+<meta name="description" content="APOC Weather Engine v25 — deterministic fantasy weather for tabletop games. One file, works offline.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101318'/%3E%3Cpath d='M6 20 Q10 14 16 18 T26 16' stroke='%2362b0ff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='10' r='3.5' fill='%23ffd166'/%3E%3C/svg%3E">
-<title>APOC Weather Engine v24</title>
+<title>APOC Weather Engine v25</title>
 <style>
 :root{
   --bg:#0c0f14; --panel:#171c26; --panel2:#1f2634; --card:#11161f;
@@ -117,7 +117,7 @@ body.focus #exitFocus{display:block}
 </head>
 <body>
 <header>
-  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v24</span></h1>
+  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v25</span></h1>
   <span class="sub">Deterministic fantasy weather · one file · works offline</span>
   <span class="spacer"></span>
   <button type="button" class="small" id="focusBtn" title="Hide everything except the result (F)">⛶ Focus on Result</button>
@@ -239,7 +239,8 @@ body.focus #exitFocus{display:block}
 </div>
 
 <footer>
-  APOC Weather Engine v24 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
+  APOC Weather Engine v25 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
+  v25 (Shaun, 2026-11-07): DM WORKSPACE — the movable-pieces treatment and in-place text editing are DM-ONLY: this page arms DM mode per device from the DM link (…?dm=1); everyone else gets the clean stock page with no grips, handles, locks or editing. In DM mode, framing text (labels, headings, hints, button names) can be reworded in place behind the Editing lock (default locked); generated weather values and the scene artwork are never editable. Layout and wording save on the DM’s device only.
   v24 (Shaun, 2026-11-07): MOVABLE PIECES — every panel, section and card on the page can be dragged by its ⠿ grip, resized from any edge or corner, flipped vertical/horizontal by its shape, and locked in place piece by piece. Layout saves on this device only; ↺ Reset Layout in the header restores the shipped arrangement.
   v23 (Shaun, 2026-10-31): HATE STORMS CARRY THEIR OWN TEMPERATURE. v22 left a hatestorm's temperature blank unless set by hand — Shaun's ruling: blank is wrong; the storm itself sets the temperature. Each of the 19 hatestorms now rolls its temperature from its own nature, in any month of the year: a Firestorm runs 110–150°F, Green Rain steams at 85–110°F, Rain of Blood falls warm at 70–90°F, while Frozen Ruin plunges to −10–15°F, Howl of the North bites at 0–25°F, and the snow-born storms (Blood Snow Blizzard, Negation Flurry, Razor Sleet, Rust Flurry) stay below freezing. The climate-shift slider still applies on top, and a temperature set by hand still wins. The season half of v22 stands unchanged: no hatestorm is ever stamped with the month's season.
   v22 (Shaun, 2026-10-31): HATE STORMS ANSWER TO NO CALENDAR — a hatestorm is not month-, season- or weather-dependent. Its odds stay the flat slider in every month of the year, a rolled hatestorm is no longer stamped with the month-derived season, and it no longer borrows the month's temperature (a Firestorm in Hammer used to present at Deepwinter's 10°F). A side benefit: a winter hatestorm's ground now renders in the storm's own bruised dark instead of winter white. Every other weather keeps its seasons and month temperatures as before. Built on v21, which completed the subtype-art program: all 52 weathers have a distinct treatment — 37 own artwork + 15 graded variants.
@@ -1018,7 +1019,7 @@ loadSettings(); updateWeights(); renderHistory(); renderBrowse();
 })();
 </script>
 <style>
-/* ===== v24: MOVABLE PIECES (Shaun, 2026-11-07) — every piece drags, resizes, reflows, locks; per-device only ===== */
+/* ===== v25: DM WORKSPACE — movable pieces + in-place text editing, DM-only (Shaun, 2026-11-07) ===== */
 .mp-chip{position:absolute;top:4px;right:4px;z-index:95;display:flex;gap:3px;align-items:center;
   opacity:0;pointer-events:none;transition:opacity .15s}
 .mp-piece:hover>.mp-chip,.mp-floated>.mp-chip{opacity:.96;pointer-events:auto}
@@ -1026,7 +1027,7 @@ loadSettings(); updateWeights(); renderHistory(); renderBrowse();
   color:#cfe3ff;background:#0d1420e6;border:1px solid var(--border);border-radius:6px;padding:3px 5px}
 .mp-grip:active{cursor:grabbing}
 .mp-locked .mp-grip{cursor:default;opacity:.55}
-.mp-lock{cursor:pointer;font-size:11px;line-height:1;background:#0d1420e6;border:1px solid var(--border);
+.mp-lock,.mp-edbtn{cursor:pointer;font-size:11px;line-height:1;background:#0d1420e6;border:1px solid var(--border);
   border-radius:6px;padding:3px 5px;color:#cfe3ff}
 .mp-floated{position:fixed!important;z-index:90;margin:0!important;overflow:auto;
   background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--border);
@@ -1045,14 +1046,30 @@ loadSettings(); updateWeights(); renderHistory(); renderBrowse();
 .mp-o-v{display:flex!important;flex-direction:column!important}
 .mp-o-v>*{min-width:0}
 .mp-o-h>.mp-chip,.mp-o-v>.mp-chip{flex:none;position:absolute}
-#mpReset{white-space:nowrap}
+#mpReset,#mpEditLock,#mpExitDM,#mpResetText{white-space:nowrap}
 body.focus .mp-floated{display:none}
 body.focus .mp-floated[data-mp-id="result"]{display:block}
+/* editing (only reachable in DM mode with the Edit Lock open) */
+body.mp-edit-on [data-ed]{outline:1px dotted #ffd16688;outline-offset:2px}
+body.mp-edit-on [data-ed]:hover{outline:1px solid #ffd166;cursor:text}
+.mp-ed-show [data-ed]{outline:1px solid #ffd166!important;outline-offset:2px}
+[data-ed][contenteditable="true"]{outline:2px solid #ffd166!important;background:#ffd16614;min-width:20px}
 </style>
 <script>
-/* ===== v24: MOVABLE PIECES — one reusable system; layout persists per device in localStorage only ===== */
+/* ===== v25: DM WORKSPACE — gate first. No DM flag on this device = this script installs NOTHING:
+   no grips, no handles, no locks, no edit affordances, no layout controls. Players get the stock page.
+   DM is armed per device by the DM link (?dm=1), persisted in localStorage 'apocWeatherDM'. ===== */
 (function(){
 "use strict";
+var DMKEY='apocWeatherDM';
+var armed=false;
+try{
+  if(new URLSearchParams(location.search).get('dm')==='1'){ localStorage.setItem(DMKEY,'1'); armed=true; }
+  else armed = localStorage.getItem(DMKEY)==='1';
+}catch(e){}
+if(!armed) return; /* ===== PLAYER SIDE: clean and locked down ===== */
+
+/* ---------- movable pieces (v24 system) ---------- */
 var KEY='apocWeatherMovableV1';
 var store={}; try{ store=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ store={}; }
 var pieces=[];
@@ -1088,7 +1105,7 @@ function floatPiece(p, rect){
   ph.style.width=r.width+'px'; ph.style.height=r.height+'px';
   if(el.classList.contains('wide')) ph.style.gridColumn='1 / -1';
   el.parentNode.insertBefore(ph, el); p.ph=ph;
-  document.body.appendChild(el); /* float at body level: escapes ancestor stacking contexts (sticky panels) so z-index wins */
+  document.body.appendChild(el); /* body level: escapes sticky ancestors' stacking contexts */
   el.classList.add('mp-floated');
   el.style.left=rect.x+'px'; el.style.top=rect.y+'px';
   el.style.width=rect.w+'px'; el.style.height=rect.h+'px';
@@ -1150,6 +1167,75 @@ function startResize(p, h, e){
   function up(){ removeEventListener('pointermove',mv); removeEventListener('pointerup',up); save(); }
   addEventListener('pointermove',mv); addEventListener('pointerup',up);
 }
+
+/* ---------- text editing, behind the Edit Lock (default LOCKED) ---------- */
+var TKEY='apocWeatherTextV1', EKEY='apocWeatherEditOpen';
+var texts={}; try{ texts=JSON.parse(localStorage.getItem(TKEY)||'{}'); }catch(e){ texts={}; }
+var editOpen=false; try{ editOpen=localStorage.getItem(EKEY)==='1'; }catch(e){}
+var edEls=[];
+function isEditableText(el){
+  /* framing text only: no live values, no generated results, no artwork, no form fields.
+     An element qualifies when nothing inside it carries an id or is a control/canvas/image/output. */
+  if(el.closest('#hero')) return false;                 /* scene artwork + generated hero values: hands off */
+  if(el.querySelector('[id],input,select,textarea,output,canvas,img,svg')) return false;
+  return true;
+}
+function collectEditables(){
+  var sel='h1,h2,h3,label,p,span,button,footer,.pill,.calmline';
+  pieces.forEach(function(p){
+    var pool=[];
+    if(p.el.matches && p.el.matches(sel)) pool.push(p.el);
+    p.el.querySelectorAll(sel).forEach(function(el){ pool.push(el); });
+    var ok=pool.filter(function(el){
+      if(el.classList.contains('mp-grip')||el.classList.contains('mp-lock')||el.classList.contains('mp-edbtn')||el.classList.contains('mp-chip')) return false;
+      if(el.closest('.mp-chip')) return false;
+      if(el.dataset.ed) return false;
+      if(!isEditableText(el)) return false;
+      if(!el.textContent.trim()) return false;
+      return true;
+    });
+    /* leaf-most only: drop any element that contains another qualifying candidate */
+    ok=ok.filter(function(el){ return !ok.some(function(o){ return o!==el && el.contains(o); }); });
+    ok.forEach(function(el, n){
+      var key=p.id+':'+n;
+      el.dataset.ed=key; edEls.push(el);
+      if(Object.prototype.hasOwnProperty.call(texts,key)) el.textContent=texts[key];
+    });
+  });
+}
+function saveTexts(){ try{ localStorage.setItem(TKEY, JSON.stringify(texts)); }catch(e){} }
+var editing=null;
+function beginEdit(el){
+  if(!editOpen || editing) return;
+  editing=el; el.dataset.orig=el.textContent;
+  el.setAttribute('contenteditable','true'); el.focus();
+  try{ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); }catch(e){}
+}
+function endEdit(commit){
+  if(!editing) return;
+  var el=editing; editing=null;
+  el.removeAttribute('contenteditable');
+  if(commit){ var t=el.textContent.trim(); if(t && t!==el.dataset.orig){ texts[el.dataset.ed]=t; saveTexts(); } else if(t) { el.textContent=t; } }
+  else el.textContent=el.dataset.orig;
+  delete el.dataset.orig;
+}
+document.addEventListener('dblclick', function(e){
+  var t=e.target.closest ? e.target.closest('[data-ed]') : null;
+  if(t) beginEdit(t);
+});
+document.addEventListener('keydown', function(e){
+  if(!editing) return;
+  /* capture phase + stopPropagation: while a wording edit is open, keystrokes must never
+     reach the engine's single-key shortcuts (F = focus mode, N = next day, ...). */
+  if(e.key==='Escape'){ e.preventDefault(); endEdit(false); }
+  else if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); endEdit(true); }
+  else if(editing.tagName==='BUTTON' && e.key===' '){ e.preventDefault(); document.execCommand('insertText', false, ' '); }
+  else if(editing.tagName==='BUTTON' && e.key==='Enter'){ e.preventDefault(); endEdit(true); }
+  e.stopPropagation();
+}, true);
+document.addEventListener('focusout', function(e){ if(editing && e.target===editing) endEdit(true); });
+
+/* ---------- build the chips ---------- */
 pieces.forEach(function(p){
   var el=p.el;
   if(getComputedStyle(el).position==='static') el.style.position='relative';
@@ -1158,11 +1244,14 @@ pieces.forEach(function(p){
   grip.title='Drag to move \u00B7 double-click to put back';
   var lock=document.createElement('button'); lock.type='button'; lock.className='mp-lock';
   lock.title='Lock this piece in place';
-  chip.appendChild(grip); chip.appendChild(lock); el.appendChild(chip);
+  var edb=document.createElement('button'); edb.type='button'; edb.className='mp-edbtn'; edb.textContent='\u270E';
+  edb.title='Highlight this piece\u2019s editable text (Edit Lock must be open)';
+  chip.appendChild(grip); chip.appendChild(lock); chip.appendChild(edb); el.appendChild(chip);
   function paintLock(){ var lk=p.st && p.st.locked; lock.textContent = lk ? '\uD83D\uDD12' : '\uD83D\uDD13';
     el.classList.toggle('mp-locked', !!lk); }
   lock.addEventListener('click', function(ev){ ev.stopPropagation();
     if(!p.st) p.st={}; p.st.locked=!p.st.locked; paintLock(); save(); });
+  edb.addEventListener('click', function(ev){ ev.stopPropagation(); if(editOpen) el.classList.toggle('mp-ed-show'); });
   grip.addEventListener('pointerdown', function(e){ startDrag(p,e); });
   grip.addEventListener('dblclick', function(){ if(!(p.st&&p.st.locked)) unfloatPiece(p); });
   if(p.st && typeof p.st.x==='number'){
@@ -1171,13 +1260,39 @@ pieces.forEach(function(p){
   }
   paintLock();
 });
-/* Reset layout control — lives in the header */
+collectEditables();
+
+/* ---------- header controls: DM badge, Edit Lock, Reset Layout, Reset Text, Exit DM ---------- */
 var hdr=document.querySelector('header');
+function paintEdit(){
+  document.body.classList.toggle('mp-edit-on', editOpen);
+  var b=document.getElementById('mpEditLock');
+  if(b) b.textContent = editOpen ? '\uD83D\uDD13 Editing: ON' : '\uD83D\uDD12 Editing: Locked';
+  if(!editOpen){ endEdit(false); pieces.forEach(function(p){ p.el.classList.remove('mp-ed-show'); }); }
+}
 if(hdr){
+  var badge=document.createElement('span'); badge.className='pill'; badge.id='mpDmBadge';
+  badge.textContent='\uD83C\uDFA9 DM mode'; badge.title='This device is armed as DM. Players never see this.';
+  hdr.appendChild(badge);
+  var eb=document.createElement('button'); eb.type='button'; eb.id='mpEditLock'; eb.className='small';
+  eb.title='Toggle lock for text editing. Locked = the page cannot be reworded by accident.';
+  eb.addEventListener('click', function(){ editOpen=!editOpen;
+    try{ localStorage.setItem(EKEY, editOpen?'1':'0'); }catch(e){} paintEdit(); });
+  hdr.appendChild(eb);
   var rb=document.createElement('button'); rb.type='button'; rb.id='mpReset';
   rb.className='small ghost'; rb.textContent='\u21BA Reset Layout'; rb.title='Put every piece back where it shipped';
   rb.addEventListener('click', function(){ try{ localStorage.removeItem(KEY); }catch(e){} location.reload(); });
   hdr.appendChild(rb);
+  var tb=document.createElement('button'); tb.type='button'; tb.id='mpResetText';
+  tb.className='small ghost'; tb.textContent='\u21BA Reset Text'; tb.title='Undo all wording edits on this device';
+  tb.addEventListener('click', function(){ try{ localStorage.removeItem(TKEY); }catch(e){} location.reload(); });
+  hdr.appendChild(tb);
+  var xb=document.createElement('button'); xb.type='button'; xb.id='mpExitDM';
+  xb.className='small ghost'; xb.textContent='Exit DM'; xb.title='Back to the clean player view on this device';
+  xb.addEventListener('click', function(){ try{ localStorage.removeItem(DMKEY); }catch(e){}
+    var u=new URL(location.href); u.searchParams.delete('dm'); location.href=u.toString(); });
+  hdr.appendChild(xb);
+  paintEdit();
 }
 })();
 </script>
