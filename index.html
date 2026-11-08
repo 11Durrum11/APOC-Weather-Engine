@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="APOC Weather Engine v25 — deterministic fantasy weather for tabletop games. One file, works offline.">
+<meta name="description" content="APOC Weather Engine v26 — deterministic fantasy weather for tabletop games. One file, works offline.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101318'/%3E%3Cpath d='M6 20 Q10 14 16 18 T26 16' stroke='%2362b0ff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='10' r='3.5' fill='%23ffd166'/%3E%3C/svg%3E">
-<title>APOC Weather Engine v25</title>
+<title>APOC Weather Engine v26</title>
 <style>
 :root{
   --bg:#0c0f14; --panel:#171c26; --panel2:#1f2634; --card:#11161f;
@@ -117,7 +117,7 @@ body.focus #exitFocus{display:block}
 </head>
 <body>
 <header>
-  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v25</span></h1>
+  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v26</span></h1>
   <span class="sub">Deterministic fantasy weather · one file · works offline</span>
   <span class="spacer"></span>
   <button type="button" class="small" id="focusBtn" title="Hide everything except the result (F)">⛶ Focus on Result</button>
@@ -239,7 +239,7 @@ body.focus #exitFocus{display:block}
 </div>
 
 <footer>
-  APOC Weather Engine v25 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
+  APOC Weather Engine v26 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
   v25 (Shaun, 2026-11-07): DM WORKSPACE — the movable-pieces treatment and in-place text editing are DM-ONLY: this page arms DM mode per device from the DM link (…?dm=1); everyone else gets the clean stock page with no grips, handles, locks or editing. In DM mode, framing text (labels, headings, hints, button names) can be reworded in place behind the Editing lock (default locked); generated weather values and the scene artwork are never editable. Layout and wording save on the DM’s device only.
   v24 (Shaun, 2026-11-07): MOVABLE PIECES — every panel, section and card on the page can be dragged by its ⠿ grip, resized from any edge or corner, flipped vertical/horizontal by its shape, and locked in place piece by piece. Layout saves on this device only; ↺ Reset Layout in the header restores the shipped arrangement.
   v23 (Shaun, 2026-10-31): HATE STORMS CARRY THEIR OWN TEMPERATURE. v22 left a hatestorm's temperature blank unless set by hand — Shaun's ruling: blank is wrong; the storm itself sets the temperature. Each of the 19 hatestorms now rolls its temperature from its own nature, in any month of the year: a Firestorm runs 110–150°F, Green Rain steams at 85–110°F, Rain of Blood falls warm at 70–90°F, while Frozen Ruin plunges to −10–15°F, Howl of the North bites at 0–25°F, and the snow-born storms (Blood Snow Blizzard, Negation Flurry, Razor Sleet, Rust Flurry) stay below freezing. The climate-shift slider still applies on top, and a temperature set by hand still wins. The season half of v22 stands unchanged: no hatestorm is ever stamped with the month's season.
@@ -1050,10 +1050,10 @@ loadSettings(); updateWeights(); renderHistory(); renderBrowse();
 body.focus .mp-floated{display:none}
 body.focus .mp-floated[data-mp-id="result"]{display:block}
 /* editing (only reachable in DM mode with the Edit Lock open) */
-body.mp-edit-on [data-ed]{outline:1px dotted #ffd16688;outline-offset:2px}
-body.mp-edit-on [data-ed]:hover{outline:1px solid #ffd166;cursor:text}
-.mp-ed-show [data-ed]{outline:1px solid #ffd166!important;outline-offset:2px}
-[data-ed][contenteditable="true"]{outline:2px solid #ffd166!important;background:#ffd16614;min-width:20px}
+body.mp-edit-on [data-ed]{outline:1px dotted #0047ab88;outline-offset:2px}
+body.mp-edit-on [data-ed]:hover{outline:1px solid #0047ab;cursor:text}
+.mp-ed-show [data-ed]{outline:1px solid #0047ab!important;outline-offset:2px}
+[data-ed][contenteditable="true"]{outline:2px solid #0047ab!important;background:#0047ab1f;min-width:20px}
 </style>
 <script>
 /* ===== v25: DM WORKSPACE — gate first. No DM flag on this device = this script installs NOTHING:
