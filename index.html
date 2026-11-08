@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="APOC Weather Engine v29 — deterministic fantasy weather for tabletop games. One file, works offline.">
+<meta name="description" content="APOC Weather Engine v30 — deterministic fantasy weather for tabletop games. One file, works offline.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101318'/%3E%3Cpath d='M6 20 Q10 14 16 18 T26 16' stroke='%2362b0ff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='10' r='3.5' fill='%23ffd166'/%3E%3C/svg%3E">
-<title>APOC Weather Engine v29</title>
+<title>APOC Weather Engine v30</title>
 <style>
 :root{
   --bg:#0c0f14; --panel:#171c26; --panel2:#1f2634; --card:#11161f;
@@ -117,7 +117,7 @@ body.focus #exitFocus{display:block}
 </head>
 <body>
 <header>
-  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v29</span></h1>
+  <h1>⛈️ APOC Weather Engine <span style="color:var(--accent)">v30</span></h1>
   <span class="sub">Deterministic fantasy weather · one file · works offline</span>
   <span class="spacer"></span>
   <button type="button" class="small" id="focusBtn" title="Hide everything except the result (F)">⛶ Focus on Result</button>
@@ -239,7 +239,8 @@ body.focus #exitFocus{display:block}
 </div>
 
 <footer>
-  APOC Weather Engine v29 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
+  APOC Weather Engine v30 — rebuilt 2026. All 52 subtype descriptions and the Faerûn calendar are carried over verbatim from the original.
+  v30 (2026-11-08): NESTING GATE FIX — live testing showed drops onto docked panels still floated. The Focus-safety check read the dragged piece’s current position, but a dragged piece always floats at page level, so the check rejected every docked host in the side column and lower area. It now reads each piece’s home slot (its placeholder) instead. Found by live verification, twice — the sweep’s lesson: drag features are only proven by dragging.
   v29 (2026-11-08): NESTING HIT-TEST FIX — the first nesting build tested only the exact drop point, so a piece dropped across another panel floated instead of nesting. The drop now measures overlap: a piece dropped so it covers a good part of another piece nests into the one it covers most. Drag it back out to un-nest, as before.
   v28 (2026-11-08): FULL BUG SWEEP + PLATFORM RULES — every panel, control and toggle, the DM treatment (gate, move, resize, lock, edit, both Resets), all 52 subtypes and their art, the 7-day forecast, share links, history and settings checked end to end; the engine came through clean. Platform rules verified on this surface: buttons at minimum footprint with no leftover gaps (v27), panels opening from buttons sized to their content, the month dropdown on the uniform dark scheme (white on black, color-scheme: dark), every button movable under the DM treatment, and NEW: nesting — drop a piece on top of another piece and it nests inside it; drag it back out to un-nest. This entry also completes the changelog for v26–v27, whose builds could not insert text.
   v27 (Shaun, 2026-11-08): MINIMUM-FOOTPRINT BUTTONS — every button shrunk to its label: standard padding 9px 12px → 5px 9px, small 6px 9px → 3px 7px, mode segments 7px → 4px vertical, browse rows 7px → 5px, button-row gaps 8px → 5px. Movable audit: 110 of 111 buttons ride inside the 14 movable pieces; the Focus-mode exit button stays fixed by design, because Focus hides floated pieces.
@@ -1153,7 +1154,7 @@ function dropHostAt(p, x, y){
   pieces.forEach(function(q){
     if(q===p || p.el.contains(q.el)) return;
     if(q.st && q.st.locked) return;
-    if(!focusHiddenEl(p.el) && focusHiddenEl(q.el)) return;
+    if(!focusHiddenEl(p.ph || p.el) && focusHiddenEl(q.ph || q.el)) return;
     var b=q.el.getBoundingClientRect();
     var ox=Math.min(r.right,b.right)-Math.max(r.left,b.left);
     var oy=Math.min(r.bottom,b.bottom)-Math.max(r.top,b.top);
